@@ -13,11 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Récupération du code
     - name: Checkout source
       uses: actions/checkout@v3
 
-    # Setup Python
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -39,18 +37,18 @@ jobs:
     - name: Run Bandit
       run: bandit -r api -ll
 
-    # Safety 
+    # Safety (non bloquant après correction)
     - name: Install Safety
       run: pip install safety
 
     - name: Run Safety
       run: safety check -r requirements.txt || true
 
-    # Build image Docker
+    # Docker build
     - name: Build Docker Image
       run: docker build -t devsecops-app .
 
-    # Scan image Docker 
+    # Trivy (bloquant CRITICAL/HIGH)
     - name: Trivy Scan
       uses: aquasecurity/trivy-action@master
       with:
