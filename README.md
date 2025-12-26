@@ -47,7 +47,6 @@ Trivy — Scan de sécurité de l’image Docker
 
 --> Toute vulnérabilité CRITICAL ou HIGH provoque l’échec automatique de la pipeline.
 
-<img width="1247" height="892" alt="image" src="https://github.com/user-attachments/assets/e8c79b26-0895-4bac-b8a4-1bd4fdab8293" />
 
 Vulnérabilités détectées — AVANT correction
 Les analyses de sécurité ont permis d’identifier plusieurs vulnérabilités critiques dans le code initial.
@@ -62,7 +61,7 @@ Endpoint / Élément	Type de vulnérabilité	Outil	OWASP Top 10
 API_KEY	Hardcoded Secret	Bandit	A02
 /log	Log Injection	Bandit	A09
 
-Pipeline en échec (avant correction)
+## Pipeline en échec (avant correction)
 
 <img width="1908" height="875" alt="image" src="https://github.com/user-attachments/assets/2b7e347d-369c-4deb-b030-1c165854bacb" />
 
@@ -72,19 +71,19 @@ Pipeline en échec (avant correction)
 
 <img width="1704" height="955" alt="image" src="https://github.com/user-attachments/assets/3f7ba773-ede6-4ca5-b92e-19917281334e" />
 
-Dockerfile
+## Dockerfile
 
 <img width="1226" height="814" alt="image" src="https://github.com/user-attachments/assets/920e239d-ab5e-4b7c-9509-284962a505d5" />
 
-requirements.txt
+## requirements.txt
 
 <img width="821" height="389" alt="image" src="https://github.com/user-attachments/assets/1f6cf1ec-ec0c-4408-9928-a0599367132b" />
 
-app.py
+## app.py
 
 <img width="1554" height="957" alt="image" src="https://github.com/user-attachments/assets/d610359c-9728-4a02-aba6-b54f4678baae" />
 
-🔐 Corrections de sécurité appliquées
+## 🔐 Corrections de sécurité appliquées
 Les vulnérabilités détectées ont été corrigées selon les bonnes pratiques DevSecOps :
 
 Vulnérabilité	Correction appliquée
@@ -97,25 +96,15 @@ Secrets exposés	Variables d’environnement
 Debug & logs	Mode debug désactivé
 Docker	Image slim + utilisateur non-root
 
-Dockerfile sécurisé
-Image légère (python:3.11-slim)
-
-Exécution avec un utilisateur non-root
-
-Surface d’attaque réduite
-
-Dockerfile sécurisé
+## Dockerfile sécurisé
 
 <img width="1360" height="616" alt="image" src="https://github.com/user-attachments/assets/4e6d4a84-9e0d-43fd-b7aa-8f875498d8e4" />
 
-requirements.txt sécurisé
-Dépendances mises à jour
-
-Suppression des versions vulnérables
+## requirements.txt sécurisé
 
 <img width="1279" height="465" alt="image" src="https://github.com/user-attachments/assets/379ae288-56a3-4e1e-8979-3966b8b5d14c" />
 
-app.py sécurisé
+## app.py sécurisé
 Entrées utilisateur validées
 
 Secrets externalisés
@@ -126,13 +115,13 @@ Conforme aux règles Bandit
 
 <img width="1167" height="969" alt="image" src="https://github.com/user-attachments/assets/5e252a40-61c3-4c47-8243-5061434b79fa" />
 
-Analyse des fichiers — APRES sécurisation
+## Analyse des fichiers — APRES sécurisation
 .github/workflows/devsecops.yml
 
 <img width="1562" height="939" alt="image" src="https://github.com/user-attachments/assets/3b12a022-f551-4225-b0e2-d2de4dfa014d" />
 
 
-Pipeline après correction
+## Pipeline après correction
 Après application de toutes les corrections :
 
 Aucune vulnérabilité CRITICAL / HIGH
