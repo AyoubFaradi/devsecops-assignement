@@ -1,0 +1,52 @@
+name: DevSecOps Pipeline - Vulnerable
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # SAST - CodeQL
+    - name: Init CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: python
+
+    - name: Run CodeQL
+      uses: github/codeql-action/analyze@v3
+
+    # Analyse sécurité Python - Bandit
+    - name: Install Bandit
+      run: pip install bandit
+
+    - name: Run Bandit (FAIL EXPECTED)
+      run: bandit -r api -ll
+
+    # Scan dépendances vulnérables
+    - name: Install Safety
+      run: pip install safety
+
+    - name: Run Safety (FAIL EXPECTED)
+      run: safety check -r requirements.txt
+
+    # Build image Docker vulnérable
+    - name: Build Docker image
+      run: docker build -t devsecops-app .
+
+    # Scan image Docker
+    - name: Trivy Scan (FAIL EXPECTED)
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: devsecops-app
+        severity: CRITICAL,HIGH
+        exit-code: 1
