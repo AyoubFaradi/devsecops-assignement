@@ -1,4 +1,4 @@
-name: DevSecOps Pipeline - Vulnerable
+name: DevSecOps Pipeline - Secured
 
 on:
   push:
@@ -13,38 +13,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout source
       uses: actions/checkout@v3
 
-    # 🔍 SAST - CodeQL
+    # SAST - CodeQL
     - name: Init CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: python
 
-    - name: Run CodeQL
+    - name: Analyze with CodeQL
       uses: github/codeql-action/analyze@v3
 
-    # 🐍 Sécurité Python - Bandit
+    # Analyse sécurité Python
     - name: Install Bandit
       run: pip install bandit
 
-    - name: Run Bandit (FAIL EXPECTED)
+    - name: Run Bandit
       run: bandit -r api -ll
 
-    # 📦 Dépendances vulnérables
+    # Scan dépendances sécurisées
     - name: Install Safety
       run: pip install safety
 
-    - name: Run Safety (FAIL EXPECTED)
+    - name: Run Safety
       run: safety check -r requirements.txt
 
-    # 🐳 Build image Docker vulnérable
+    # Build image Docker durcie
     - name: Build Docker Image
       run: docker build -t devsecops-app .
 
-    # 🔐 Scan image Docker
-    - name: Trivy Scan (FAIL EXPECTED)
+    # Scan image Docker 
+    - name: Trivy Scan
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: devsecops-app
